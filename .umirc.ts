@@ -1,11 +1,13 @@
 import { defineConfig } from 'umi';
 
+let publicPath = '/';
+let base = '/';
+
 export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  routes: [
-    { path: '/', component: '@/pages/index' },
-  ],
   fastRefresh: {},
+  base,
+  publicPath,
 });
