@@ -92,7 +92,7 @@ export default function View() {
         </div>
       </TabPane>
       <TabPane tab="OSS资源下载" key="2">
-        Content of Tab Pane 2
+        Content of Tab Pane 22
       </TabPane>
     </Tabs>
   );
