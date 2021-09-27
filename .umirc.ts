@@ -5,8 +5,8 @@ let base = '/';
 
 switch (process.env.APP_ENV) {
   case 'prod':
-    publicPath = '/web/dist/';
-    base = '/web/dist';
+    publicPath = '/web/';
+    base = '/web';
     break;
 
   default:
