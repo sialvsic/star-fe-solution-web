@@ -4,14 +4,9 @@ let publicPath = '/';
 let base = '/';
 
 switch (process.env.APP_ENV) {
-  case 'test':
-    publicPath = '/dist/';
-    base = '/dist';
-    break;
-
   case 'prod':
-    publicPath = '/dist/';
-    base = '/dist';
+    publicPath = '/web/dist/';
+    base = '/web/dist';
     break;
 
   default:
