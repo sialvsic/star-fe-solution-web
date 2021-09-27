@@ -1,8 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "start": "umi dev",
-    "build": "umi build",
+    "start": "FORK_TS_CHECKER=1 umi dev",
+    "build": "export APP_ENV=dev && umi build",
+    "build-prod": "export APP_ENV=prod && umi build",
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
