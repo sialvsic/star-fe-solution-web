@@ -6,7 +6,7 @@ let base = '/';
 switch (process.env.APP_ENV) {
   case 'prod':
     publicPath = '/web/';
-    base = '/web';
+    base = '/web/';
     break;
 
   default:
@@ -22,4 +22,5 @@ export default defineConfig({
   fastRefresh: {},
   base,
   publicPath,
+  hash: true,
 });
