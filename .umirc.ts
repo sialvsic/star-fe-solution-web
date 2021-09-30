@@ -23,6 +23,9 @@ export default defineConfig({
   base,
   publicPath,
   hash: true,
+  define: {
+    'process.env.APP_ENV': process.env.APP_ENV,
+  },
   proxy: {
     '/api': {
       target: 'http://dev.fe-solution.com:4000/api',
