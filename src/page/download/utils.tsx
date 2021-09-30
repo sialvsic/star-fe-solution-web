@@ -1,6 +1,6 @@
 import { FILETYPE } from './interface';
 
-export const action = 'http://dev.star.com:3001/api/file/download';
+export const action = 'http://dev.star.com:4000/api/file/download';
 
 export function getDownloadFilePath(type: FILETYPE = FILETYPE.TXT) {
   return action + `?type=${type}`;
