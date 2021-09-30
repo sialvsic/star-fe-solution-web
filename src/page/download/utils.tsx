@@ -1,16 +1,20 @@
-import { FILETYPE } from './interface';
+import {
+  getDownloadFileURL,
+  getDownloadOSSFileURL,
+  getDownloadOSSPath,
+} from '@/api';
+import Item from 'antd/lib/list/Item';
+import { FILETYPE } from './constant';
 
-export const action = 'http://dev.star.com:4000/api/file/download';
-
-export function getDownloadFilePath(type: FILETYPE = FILETYPE.TXT) {
-  return action + `?type=${type}`;
-}
-
-export function formArray(action: string, array: FILETYPE[]) {
+export function formArray(array: FILETYPE[], oss?: boolean) {
   return array.map((item, index) => {
     return (
       <form
-        action={action}
+        action={
+          oss
+            ? getDownloadOSSPath(FILETYPE.TXT)
+            : getDownloadFileURL(FILETYPE.TXT)
+        }
         method="get"
         target="_blank"
         className="form"
@@ -25,16 +29,23 @@ export function formArray(action: string, array: FILETYPE[]) {
   });
 }
 
-export function windowArray(array: FILETYPE[]) {
+export function windowArray(array: FILETYPE[], oss?: boolean) {
+  const onClick = async (item: FILETYPE) => {
+    if (oss) {
+      const url = await getDownloadOSSFileURL(item);
+      window.open(url);
+    } else {
+      window.open(getDownloadFileURL(item));
+    }
+  };
+
   return array.map((item, index) => {
     return (
       <button
         key={index}
         className="btn"
         type="button"
-        onClick={() => {
-          window.open(getDownloadFilePath(item));
-        }}
+        onClick={() => onClick(item)}
       >
         {`window.open ${item}`}
       </button>
@@ -42,16 +53,23 @@ export function windowArray(array: FILETYPE[]) {
   });
 }
 
-export function windowLocationArray(array: FILETYPE[]) {
+export function windowLocationArray(array: FILETYPE[], oss?: boolean) {
+  const onClick = async (item: FILETYPE) => {
+    if (oss) {
+      const url = await getDownloadOSSFileURL(item);
+      window.location.href = url;
+    } else {
+      window.location.href = getDownloadFileURL(item);
+    }
+  };
+
   return array.map((item, index) => {
     return (
       <button
         key={index}
         className="btn"
         type="button"
-        onClick={() => {
-          window.location.href = getDownloadFilePath(item);
-        }}
+        onClick={() => onClick(item)}
       >
         {`window.location.href ${item}`}
       </button>
@@ -59,12 +77,16 @@ export function windowLocationArray(array: FILETYPE[]) {
   });
 }
 
-export function ALinkArray(array: FILETYPE[]) {
+export function ALinkArray(array: FILETYPE[], oss?: boolean) {
+  if (oss) {
+    return;
+  }
+
   return array.map((item, index) => {
     return (
       <a
         key={index}
-        href={getDownloadFilePath(item)}
+        href={getDownloadFileURL(item)}
         download
         target="_blank"
         className="href"
@@ -75,12 +97,16 @@ export function ALinkArray(array: FILETYPE[]) {
   });
 }
 
-export function BlobArray(array: FILETYPE[]) {
+export function BlobArray(array: FILETYPE[], oss?: boolean) {
+  if (oss) {
+    return;
+  }
+
   return array.map((item, index) => {
     return (
       <button
         className="btn"
-        onClick={() => downloadFileByA(item, 'newName')}
+        onClick={() => downloadFileByBlob(item, 'newName')}
         key={index}
       >
         {`blog ${item}`}
@@ -89,14 +115,18 @@ export function BlobArray(array: FILETYPE[]) {
   });
 }
 
-export function IFrameArray(array: FILETYPE[]) {
+export function IFrameArray(array: FILETYPE[], oss?: boolean) {
+  const onClick = (item: FILETYPE) => {
+    if (oss) {
+      downloadOSSFileByIframe(item);
+    } else {
+      downloadFileByIframe(item);
+    }
+  };
+
   return array.map((item, index) => {
     return (
-      <button
-        className="btn"
-        onClick={() => downloadFileByIframe(item)}
-        key={index}
-      >
+      <button className="btn" onClick={() => onClick(item)} key={index}>
         {`iframe ${item}`}
       </button>
     );
@@ -106,9 +136,9 @@ export function IFrameArray(array: FILETYPE[]) {
 /*
 这种方式存在的问题就是如果下载的文件特别大的时候，那么先需要下载到本地才进行改名，要花费很多时间
 */
-function downloadFileByA(type: FILETYPE, name: string) {
+function downloadFileByBlob(type: FILETYPE, name: string) {
   const xhr = new XMLHttpRequest();
-  xhr.open('get', getDownloadFilePath(type));
+  xhr.open('get', getDownloadFileURL(type));
   xhr.responseType = 'blob';
 
   xhr.send();
@@ -131,7 +161,16 @@ function downloadFileByA(type: FILETYPE, name: string) {
 
 function downloadFileByIframe(type: FILETYPE) {
   const link = document.createElement('iframe');
-  link.src = getDownloadFilePath(type);
+  link.src = getDownloadFileURL(type);
+  link.setAttribute('style', 'display:none'); //or any other extension
+  document.body.appendChild(link);
+  link.click();
+}
+
+async function downloadOSSFileByIframe(type: FILETYPE) {
+  const url = await getDownloadOSSFileURL(type);
+  const link = document.createElement('iframe');
+  link.src = url;
   link.setAttribute('style', 'display:none'); //or any other extension
   document.body.appendChild(link);
   link.click();

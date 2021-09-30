@@ -6,7 +6,7 @@ import env from '@/config';
 接口返回的格式：
 
 {
-  ret: 200,
+  ret: 0,  // 0 or -1 or code
   success: true,
   msg: "success",
   data: url,
@@ -61,12 +61,13 @@ export default function request<T>({
   headers,
   domain,
   ...rest
-}: RequestType): Promise<any> {
+}: RequestType): Promise<T> {
   if (!domain) {
     domain = env.API_ROOT;
   }
 
   const reqUrl = `${domain}${url}`;
+
   const axiosInstance = axios.create({
     timeout: env.devEnv ? dev_timeout : prod_timeout,
   });
@@ -89,7 +90,7 @@ export function requestWithoutInterceptors<T>({
   withCredentials = true,
   domain = '',
   ...rest
-}: RequestWithoutInterceptors): Promise<any> {
+}: RequestWithoutInterceptors): Promise<T> {
   if (!domain) {
     domain = env.API_ROOT;
   }

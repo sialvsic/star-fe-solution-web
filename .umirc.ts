@@ -23,4 +23,11 @@ export default defineConfig({
   base,
   publicPath,
   hash: true,
+  proxy: {
+    '/api': {
+      target: 'http://dev.fe-solution.com:4000/api',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
+    },
+  },
 });

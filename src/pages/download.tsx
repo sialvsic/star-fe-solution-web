@@ -1,6 +1,5 @@
 import Layout from '@/components/Layout';
 import DownLoad from '../page/download';
-import styles from './index.less';
 
 export default function DownLoadPage() {
   return (

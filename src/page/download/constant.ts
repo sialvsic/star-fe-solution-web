@@ -1,5 +1,3 @@
-// txt pdf excel png jpeg mp3 mp4
-
 export enum FILETYPE {
   TXT = 'txt',
   PDF = 'pdf',
