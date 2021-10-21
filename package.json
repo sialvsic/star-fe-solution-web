@@ -1,4 +1,5 @@
 {
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "FORK_TS_CHECKER=1 umi dev",

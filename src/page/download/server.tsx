@@ -16,7 +16,7 @@ export default function server() {
     let form = document.createElement('form');
     form.method = 'get';
     form.action = getDownloadFileURL(FILETYPE.TXT);
-    form.target = '_blank'; // form新开页面
+    form.target = '_blank'; // form 新开页面
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
