@@ -1,0 +1,58 @@
+.sortable-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ececec;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  > .list-container {
+    margin: 40px auto;
+    width: 400px;
+    min-height: 600px;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+
+    .item {
+      position: relative;
+      box-sizing: border-box;
+      height: 50px;
+      padding: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      cursor: grab;
+      user-select: none;
+
+      &.drop-up {
+        animation: dropUp 0.3s ease-in-out forwards;
+      }
+      &.drop-down {
+        animation: dropDown 0.3s ease-in-out forwards;
+      }
+
+      &.border-top {
+        border-top: 2px solid red;
+      }
+    }
+  }
+}
+
+@keyframes dropUp {
+  100% {
+    transform: translateY(5px);
+  }
+}
+
+@keyframes dropDown {
+  100% {
+    transform: translateY(-5px);
+  }
+}
