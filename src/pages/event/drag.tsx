@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout';
-import Drag from '../page/drag';
+import Drag from '@/page/drag';
 
 export default function DragPage() {
   return (
