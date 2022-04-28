@@ -4,3 +4,5 @@ export {
   getDownloadOSSFileURL,
   getDownloadOSSPath,
 } from './download';
+
+export { fetchOssList } from './upload';

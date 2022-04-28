@@ -21,5 +21,6 @@ export function getDownloadOSSPath(type: FILETYPE): string {
 
 export async function getDownloadOSSFileURL(type: FILETYPE): Promise<string> {
   const result = await downloadOSSFile(type);
+  console.log('result', result);
   return result.data;
 }
