@@ -1,5 +1,5 @@
 export default {
-  API_ROOT: 'http://localhost:8000/api',
+  API_ROOT: 'http://localhost:4000/api',
   devEnv: true,
   environment: 'dev',
 };

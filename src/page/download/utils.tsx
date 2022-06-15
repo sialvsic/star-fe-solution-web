@@ -168,7 +168,9 @@ function downloadFileByIframe(type: FILETYPE) {
 }
 
 async function downloadOSSFileByIframe(type: FILETYPE) {
+  console.log('downloadOSSFileByIframe');
   const url = await getDownloadOSSFileURL(type);
+  console.log('url', url);
   const link = document.createElement('iframe');
   link.src = url;
   link.setAttribute('style', 'display:none'); //or any other extension

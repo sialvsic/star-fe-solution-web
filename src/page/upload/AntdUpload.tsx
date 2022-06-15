@@ -40,13 +40,19 @@ export default function AntdUpload() {
     onChange(info: any) {
       console.log('info', info);
 
-      const { status } = info.file;
+      const { status, response } = info.file;
 
       if (status !== 'uploading') {
         console.log(info.file, info.fileList);
       }
+
       if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`);
+        if (response.success) {
+          message.success(`${info.file.name} file uploaded successfully.`);
+        } else {
+          message.error(`${info.file.name} file uploaded failed.`);
+        }
+
         fetchList();
       } else if (status === 'error') {
         message.error(`${info.file.name} file upload failed.`);

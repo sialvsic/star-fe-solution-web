@@ -5,4 +5,10 @@ export {
   getDownloadOSSPath,
 } from './download';
 
-export { fetchOssList } from './upload';
+export {
+  fetchOssList,
+  uploadFile,
+  checkFile,
+  mergeFile,
+  uploadChunkFile,
+} from './upload';

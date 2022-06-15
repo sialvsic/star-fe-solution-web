@@ -50,8 +50,7 @@ function FileUpload() {
     });
     const { data } = result;
     if (data.ret == 0) {
-      console.log('data', data.data);
-      setUrl(data.data.url);
+      setUrl(data?.data?.url || '');
     } else {
       alert('上传失败！');
     }
