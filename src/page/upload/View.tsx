@@ -16,7 +16,7 @@ export default function View() {
   return (
     <>
       <h1>文件上传</h1>
-      <Tabs onChange={callback} type="card" defaultActiveKey="2">
+      <Tabs onChange={callback} type="card" defaultActiveKey="1">
         <TabPane tab="antd 组件" key="1">
           <AntdUpload />
         </TabPane>

@@ -12,6 +12,11 @@ function SliceSingleUpload() {
   const [progress, setProgress] = useState(0);
   const [url, setUrl] = useState('');
 
+  const clearFileValue = () => {
+    const node = document.querySelector('#s-file') as HTMLInputElement;
+    node.value = '';
+  };
+
   const onFileUpload = (e: React.BaseSyntheticEvent) => {
     const file = e.target.files[0];
     console.log(file);
@@ -20,14 +25,15 @@ function SliceSingleUpload() {
       return;
     }
 
-    if (file.type.indexOf('image') === -1) {
-      //校验文件类型
-      message.info('只能选择图片格式');
-      return false;
-    }
+    // if (file.type.indexOf('image') === -1) {
+    //   //校验文件类型
+    //   message.info('只能选择图片格式');
+    //   return false;
+    // }
 
-    if (file.size / 1000 > 1024) {
-      alert('文件不能大于1024KB！');
+    if (file.size / 1000 / 1000 > 1024) {
+      alert('文件不能大于1024MB！');
+      clearFileValue();
       return false;
     }
 
@@ -71,7 +77,15 @@ function SliceSingleUpload() {
 
     if (success) {
       //4. 通知服务器上传已完成
-      await merge(md5Value, fileName);
+      const result = await merge(md5Value, fileName);
+      const { success } = result;
+      if (success) {
+        message.success(`file uploaded successfully.`);
+      } else {
+        message.error(`file uploaded failed.`);
+      }
+
+      clearFileValue();
       return;
     }
 
@@ -82,7 +96,13 @@ function SliceSingleUpload() {
     <>
       <div>
         <label htmlFor="">请选择文件</label>
-        <input type="file" name="file" multiple onChange={onFileUpload} />
+        <input
+          id="s-file"
+          type="file"
+          name="file"
+          multiple
+          onChange={onFileUpload}
+        />
       </div>
       <div>
         <label htmlFor="">当前进度: {progress}%</label>
