@@ -14,6 +14,7 @@ export function fetchOssList() {
   });
 }
 
+//普通上传
 export function uploadFile(formData: FormData) {
   return request<Response<string>>({
     url: '/file/upload',
@@ -25,6 +26,7 @@ export function uploadFile(formData: FormData) {
   });
 }
 
+//分片上传
 export function uploadChunkFile(formData: FormData) {
   return request<Response<string>>({
     url: '/file/upload/chunk',
